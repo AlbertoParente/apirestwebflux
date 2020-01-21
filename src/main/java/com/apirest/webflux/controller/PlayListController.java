@@ -23,4 +23,14 @@ public class PlayListController {
 	public Flux<PlayList> getPlayList(){
 		return playListService.findAll();
 	}
+	
+	@GetMapping(value="/playlist/{id}")
+	public Mono<PlayList> getPlayListId(@PathVariable String id) {
+		return playListService.findById(id);
+	}
+	
+	@PostMapping(value="/playlist")
+	public Mono<PlayList> save(@RequestBody PlayList playList) {
+		return playListService.save(playList);
+	}
 }
