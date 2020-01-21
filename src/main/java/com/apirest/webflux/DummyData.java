@@ -21,7 +21,7 @@ public class DummyData implements CommandLineRunner {
 	
 	public void run(String... args) throws Exception {
 		
-		playListRepository.deleAll()
+		playListRepository.deleteAll()
 				.thenMany(
 						Flux.just("API REST Spring Boot", "Deploy de uma aplicação jana no IBM Cloud", "Java 8",
 								"Github", "String Security", "Web Services RESTFULL", "Bean no String Framework")
