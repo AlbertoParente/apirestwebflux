@@ -1,17 +1,22 @@
 package com.apirest.webflux.controller;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import com.apirest.webflux.document.PlayList;
 import com.apirest.webflux.services.PlayListService;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.util.function.Tuple2;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 public class PlayListController {
@@ -33,4 +38,19 @@ public class PlayListController {
 	public Mono<PlayList> save(@RequestBody PlayList playList) {
 		return playListService.save(playList);
 	}
+	
+	@GetMapping(value="/playlist/events"/ produces MediaType.TEXT_EVENT_STREAM_VALUE)
+	public Flux<Tuple2<Long, PlayList>> getPlayListBtEvents() {
+		
+		Flux<Long> interval = Flux.interval(Duration.ofSeconds)
+		Flux<PlayList> events = playListService.findAll();
+		System.out.println("Passou aqui");
+		return Fluz.zip(interval, events)
+				
+				
+	}
+	
+	
+	
+	
 }
